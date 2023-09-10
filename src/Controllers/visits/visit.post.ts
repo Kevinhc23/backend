@@ -1,46 +1,54 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { visitType } from "../../../type";
 
 const prisma = new PrismaClient();
 
-export const createVisit = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+export const createVisit = async (req: Request, res: Response) => {
   try {
     const {
-      cedula,
       name,
-      departureTime,
-      hour,
-      purpose,
-      status,
-      notes,
-      departmentId,
+      cedula,
+      lastname,
+      department,
+      date,
+      visitComments,
+      visitPurpose,
     } = req.body;
-    const parsedCedula = parseInt(cedula);
+    const visitor = await prisma.visitor.create({
+      data: {
+        name,
+        cedula,
+        lastname,
+      },
+    });
 
     const createDepartment = await prisma.department.create({
       data: {
-        department: departmentId,
+        department,
       },
     });
 
-    const visit = await prisma.visitor.create({
+    const visit = await prisma.visit.create({
       data: {
-        cedula: parsedCedula,
-        name: name,
-        departureTime: departureTime || "",
-        hour: hour,
-        purpose: purpose,
-        status: status || false,
-        notes: notes || "",
-        departmentId: createDepartment.id,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        visitComments,
+        visitPurpose,
+        visitStatus: "Pendiente",
+        visitor: {
+          connect: {
+            cedula: visitor.cedula,
+          },
+        },
+        department: {
+          connect: {
+            id: createDepartment.id,
+          },
+        },
       },
     });
-    return res.status(200).json(visit);
-  } catch (e) {
-    return res.status(500).json({ error: e });
+    res.status(200).json(visit);
+  } catch (error) {
+    res.status(500).json({ error });
   }
 };

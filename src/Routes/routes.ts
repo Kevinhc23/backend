@@ -5,15 +5,11 @@ import { deleteUser } from "../Controllers/users/user.delete";
 import { changePassword } from "../Controllers/users/user.patch";
 import { allVisit, oneVisit } from "../Controllers/visits/visit.get";
 import { createVisit } from "../Controllers/visits/visit.post";
-import {
-  updateStatusVisit,
-  updateNotesVisit,
-} from "../Controllers/visits/visit.patch";
 import { signIn } from "../Controllers/auth/signIn";
 
 //validaciones
-import { validateUser } from "../lib/validate-user";
-import { validateDni } from "../lib/validate-dni";
+import { validateUser } from "../Middleware/validate-user";
+import { validateVisitor } from "../Middleware/validate-visit";
 
 const routes = Router();
 
@@ -27,9 +23,7 @@ routes.patch("/users/:email", changePassword);
 // Visits
 routes.get("/visits", allVisit);
 routes.get("/visits/:cedula", oneVisit);
-routes.post("/visits", validateDni, createVisit);
-routes.patch("/visits/:cedula/status", updateStatusVisit);
-routes.patch("/visits/:cedula/notes", updateNotesVisit);
+routes.post("/visits", validateVisitor, createVisit);
 
 // Auth
 routes.post("/auth/signin", signIn);
