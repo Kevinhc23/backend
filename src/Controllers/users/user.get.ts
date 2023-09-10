@@ -10,7 +10,6 @@ export const allUser = async (req: Request, res: Response) => {
         role: true,
       },
     });
-    console.log(users);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error });

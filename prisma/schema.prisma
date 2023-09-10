@@ -24,21 +24,28 @@ model Role {
 }
 
 model Department {
-  id         String    @id @default(uuid())
+  id         String  @id @default(uuid())
   department String
-  visitors   Visitor[]
+  visits     Visit[]
 }
 
 model Visitor {
+  id       String  @id @default(uuid())
+  name     String
+  lastname String
+  cedula   Int     @unique
+  visits   Visit[]
+}
+
+model Visit {
   id            String     @id @default(uuid())
-  date          DateTime   @default(now())
-  name          String
-  cedula        Int        @unique
-  departureTime String?
-  hour          String?
-  purpose       String
-  status        Boolean
-  notes         String
+  visitorId     String
   departmentId  String
+  date          DateTime
+  time          DateTime
+  visitPurpose  String
+  visitComments String
+  visitStatus   String
   department    Department @relation(fields: [departmentId], references: [id])
+  visitor       Visitor    @relation(fields: [visitorId], references: [id])
 }
