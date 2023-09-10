@@ -24,18 +24,18 @@ model Role {
 }
 
 model Department {
-  id       String    @id @default(uuid())
-  name     String
-  visitors Visitor[]
+  id         String    @id @default(uuid())
+  department String
+  visitors   Visitor[]
 }
 
 model Visitor {
   id            String     @id @default(uuid())
-  date          DateTime
+  date          DateTime   @default(now())
   name          String
-  cedula        Int
-  departureTime DateTime
-  hour          String
+  cedula        Int        @unique
+  departureTime String?
+  hour          String?
   purpose       String
   status        Boolean
   notes         String

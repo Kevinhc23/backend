@@ -1,20 +1,24 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Api Rest de registro de visitas a la empresa con Node.js, Express y TypeScript",
+  "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "build": "tsc -p tsconfig.json --outDir ./build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kevin Hernandez Crespo",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.2.0",
     "@types/cors": "^2.8.14",
     "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/morgan": "^1.9.5",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^5.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
@@ -22,6 +26,7 @@
   "devDependencies": {
     "@types/node": "^20.6.0",
     "@types/nodemon": "^1.19.2",
+    "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
   }
 }
