@@ -7,6 +7,7 @@ export const allVisit = async (req: Request, res: Response) => {
   try {
     const visits = await prisma.visit.findMany({
       include: {
+        visitor: true,
         department: true,
       },
     });
@@ -24,6 +25,9 @@ export const oneVisit = async (req: Request, res: Response) => {
     const visit = await prisma.visitor.findUnique({
       where: {
         cedula: parsedCedula,
+      },
+      include: {
+        visits: true,
       },
     });
     res.status(200).json(visit);

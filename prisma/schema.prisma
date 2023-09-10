@@ -41,11 +41,11 @@ model Visit {
   id            String     @id @default(uuid())
   visitorId     String
   departmentId  String
-  date          DateTime
-  time          DateTime
+  date          String
+  time          String
   visitPurpose  String
   visitComments String
   visitStatus   String
-  department    Department @relation(fields: [departmentId], references: [id])
   visitor       Visitor    @relation(fields: [visitorId], references: [id])
+  department    Department @relation(fields: [departmentId], references: [id])
 }

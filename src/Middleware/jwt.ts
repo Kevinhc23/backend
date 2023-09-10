@@ -1,8 +1,8 @@
 import { sign } from "jsonwebtoken";
-import { convertMsToDays } from "../lib/ms-days";
+import { convertDaysToMs } from "../lib/ms-days";
 import { payloadType } from "../../type";
 
-const msToDays = convertMsToDays(1);
+const msToDays = convertDaysToMs(1);
 
 export const createToken = (user: any) => {
   const payload: payloadType = {

@@ -1,4 +1,9 @@
-export const convertMsToDays = (ms: number) => {
-  const days = Math.floor(ms / 86400000);
-  return days;
+export const convertDaysToMs = (days: number) => {
+  const ms = days * 86400000;
+  return ms;
+};
+
+export const convertHourToMs = (Hour: number) => {
+  const ms = Hour * 3600000;
+  return ms;
 };

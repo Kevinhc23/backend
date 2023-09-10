@@ -9,7 +9,7 @@ import { signIn } from "../Controllers/auth/signIn";
 
 //validaciones
 import { validateUser } from "../Middleware/validate-user";
-import { validateVisitor } from "../Middleware/validate-visit";
+import { validateVisitorAndCreate } from "../Middleware/validate-visit";
 
 const routes = Router();
 
@@ -23,7 +23,7 @@ routes.patch("/users/:email", changePassword);
 // Visits
 routes.get("/visits", allVisit);
 routes.get("/visits/:cedula", oneVisit);
-routes.post("/visits", validateVisitor, createVisit);
+routes.post("/visits", validateVisitorAndCreate, createVisit);
 
 // Auth
 routes.post("/auth/signin", signIn);

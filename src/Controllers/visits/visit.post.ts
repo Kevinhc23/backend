@@ -5,19 +5,13 @@ const prisma = new PrismaClient();
 
 export const createVisit = async (req: Request, res: Response) => {
   try {
-    const {
-      name,
-      cedula,
-      lastname,
-      department,
-      date,
-      visitComments,
-      visitPurpose,
-    } = req.body;
+    const { name, cedula, lastname, department, visitComments, visitPurpose } =
+      req.body;
+    const parsedCedula = parseInt(cedula);
     const visitor = await prisma.visitor.create({
       data: {
         name,
-        cedula,
+        cedula: parsedCedula,
         lastname,
       },
     });
@@ -49,6 +43,7 @@ export const createVisit = async (req: Request, res: Response) => {
     });
     res.status(200).json(visit);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 };
