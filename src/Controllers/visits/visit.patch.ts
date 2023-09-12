@@ -3,42 +3,22 @@ import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-export const updateStatusVisit = async (req: Request, res: Response) => {
-  try {
-    const { cedula } = req.params;
-    const { status } = req.body;
-    const parsedCedula = parseInt(cedula);
+export const visitState = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { visitStatus } = req.body;
 
-    const visit = await prisma.visitor.update({
+  try {
+    const visit = await prisma.visit.update({
       where: {
-        cedula: parsedCedula,
+        id: id,
       },
       data: {
-        status: status,
+        visitStatus: visitStatus,
       },
     });
+
     res.status(200).json(visit);
   } catch (error) {
-    res.status(500).json({ error });
-  }
-};
-
-export const updateNotesVisit = async (req: Request, res: Response) => {
-  try {
-    const { cedula } = req.params;
-    const { notes } = req.body;
-    const parsedCedula = parseInt(cedula);
-
-    const visit = await prisma.visitor.update({
-      where: {
-        cedula: parsedCedula,
-      },
-      data: {
-        notes: notes,
-      },
-    });
-    res.status(200).json(visit);
-  } catch (error) {
-    res.status(500).json({ error });
+    res.status(404).json({ error: "State not Change" });
   }
 };

@@ -8,7 +8,8 @@ export const validateVisitorAndCreate = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { cedula, department, visitComments, visitPurpose } = req.body;
+  const { cedula, department, visitComments, visitPurpose, visitStatus } =
+    req.body;
   const parsedCedula = parseInt(cedula);
 
   const visitorExiste = await prisma.visitor.findUnique({
@@ -30,7 +31,7 @@ export const validateVisitorAndCreate = async (
         time: new Date().toLocaleTimeString(),
         visitComments,
         visitPurpose,
-        visitStatus: "Pendiente",
+        visitStatus: visitStatus,
         visitor: {
           connect: {
             cedula: visitorExiste.cedula,

@@ -5,8 +5,15 @@ const prisma = new PrismaClient();
 
 export const createVisit = async (req: Request, res: Response) => {
   try {
-    const { name, cedula, lastname, department, visitComments, visitPurpose } =
-      req.body;
+    const {
+      name,
+      cedula,
+      lastname,
+      department,
+      visitComments,
+      visitPurpose,
+      visitStatus,
+    } = req.body;
     const parsedCedula = parseInt(cedula);
     const visitor = await prisma.visitor.create({
       data: {
@@ -28,7 +35,7 @@ export const createVisit = async (req: Request, res: Response) => {
         time: new Date().toLocaleTimeString(),
         visitComments,
         visitPurpose,
-        visitStatus: "Pendiente",
+        visitStatus: visitStatus,
         visitor: {
           connect: {
             cedula: visitor.cedula,

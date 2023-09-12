@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export const signIn = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    const lowerCaseEmail = email.toLowerCase();
+    const lowerCaseEmail: string = email.toLowerCase();
 
     const user = await prisma.user.findUnique({
       where: {
@@ -28,11 +28,9 @@ export const signIn = async (req: Request, res: Response) => {
     if (!validPassword) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
-
     const token = createToken(user);
     res.status(200).json({ token });
   } catch (error) {
-    console.error("Error en la autenticación:", error);
     res.status(500).json({ message: "Error en la autenticación" });
   }
 };

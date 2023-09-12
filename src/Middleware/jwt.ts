@@ -8,11 +8,13 @@ export const createToken = (user: any) => {
   const payload: payloadType = {
     id: user.id,
     email: user.email,
+    name: user.name,
     role: user.role,
+    lastname: user.lastname,
   };
 
   const token = sign(payload, process.env.SECRET_KEY!, {
-    expiresIn: msToDays,
+    expiresIn: 86400,
   });
 
   return token;

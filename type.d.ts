@@ -2,6 +2,8 @@ export type payloadType = {
   id: number;
   email: string;
   role: string;
+  name: string;
+  lastname: string;
 };
 
 export type visitType = {

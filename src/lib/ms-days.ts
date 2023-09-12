@@ -1,5 +1,5 @@
 export const convertDaysToMs = (days: number) => {
-  const ms = days * 86400000;
+  const ms = days * 60 * 60 * 24 * 1000;
   return ms;
 };
 

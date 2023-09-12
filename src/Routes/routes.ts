@@ -6,6 +6,8 @@ import { changePassword } from "../Controllers/users/user.patch";
 import { allVisit, oneVisit } from "../Controllers/visits/visit.get";
 import { createVisit } from "../Controllers/visits/visit.post";
 import { signIn } from "../Controllers/auth/signIn";
+import { visitDelete } from "../Controllers/visits/visit.delete";
+import { visitState } from "../Controllers/visits/visit.patch";
 
 //validaciones
 import { validateUser } from "../Middleware/validate-user";
@@ -24,6 +26,8 @@ routes.patch("/users/:email", changePassword);
 routes.get("/visits", allVisit);
 routes.get("/visits/:cedula", oneVisit);
 routes.post("/visits", validateVisitorAndCreate, createVisit);
+routes.delete("/visits/:id", visitDelete);
+routes.patch("/visits/:id", visitState);
 
 // Auth
 routes.post("/auth/signin", signIn);
